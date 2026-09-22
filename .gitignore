@@ -1,0 +1,10 @@
+# Local reading copies and private conversation
+papers/**/*.pdf
+sources/conversation-original.txt
+# Experiment assets
+**/data/
+**/checkpoints/
+**/wandb/
+**/__pycache__/
+.venv/
+*.pyc

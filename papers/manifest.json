@@ -1,0 +1,252 @@
+[
+  {
+    "id": "tedrake",
+    "title": "Underactuated Robotics",
+    "year": "2023 PDF snapshot",
+    "file": "papers/foundations/tedrake-underactuated-robotics.pdf",
+    "source_url": "https://underactuated.csail.mit.edu/",
+    "pdf_url": "https://github.com/RussTedrake/underactuated/releases/download/2023-03-24/book.pdf",
+    "verify_terms": [
+      "Underactuated Robotics"
+    ],
+    "status": "downloaded",
+    "resolved_url": "https://release-assets.githubusercontent.com/github-production-release-asset/23526294/cb488031-88af-4268-a487-c266b8feeac1?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-09-22T19%3A04%3A39Z&rscd=attachment%3B+filename%3Dbook.pdf&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-09-22T18%3A03%3A47Z&ske=2026-09-22T19%3A04%3A39Z&sks=b&skv=2018-11-09&sig=hESShwRj377RLYm8qOmaHmCEhJdM6kYgEaOvGe90Q1g%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc5MDEwMTEyMCwibmJmIjoxNzkwMTAwODIwLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.qSOUjVSaBk3HIZPYyxh_2D5eTMnSAyaPN_ILB9Uv7jg&response-content-disposition=attachment%3B%20filename%3Dbook.pdf&response-content-type=application%2Foctet-stream",
+    "pages": 337,
+    "bytes": 5867609,
+    "sha256": "56e7218b17805e734fd3ad687b4da5f64a7095f8aa6a740e0127ab35c2831875",
+    "verified_at": "2026-09-22T18:13:36.707642+00:00"
+  },
+  {
+    "id": "mayne2000",
+    "title": "Constrained Model Predictive Control: Stability and Optimality",
+    "year": 2000,
+    "file": "papers/foundations/mayne-2000-constrained-mpc.pdf",
+    "source_url": "https://doi.org/10.1016/S0005-1098(99)00214-9",
+    "pdf_url": "https://citeseerx.ist.psu.edu/document?doi=abe3167ff50408ea3b89890f63526c1f2fbd7087&repid=rep1&type=pdf",
+    "verify_terms": [
+      "Constrained model predictive control",
+      "Mayne"
+    ],
+    "status": "unavailable",
+    "error": "HTTP Error 404: NOT FOUND",
+    "download_attempts": [
+      {
+        "url": "https://citeseerx.ist.psu.edu/document?doi=abe3167ff50408ea3b89890f63526c1f2fbd7087&repid=rep1&type=pdf",
+        "result": "HTTP 404"
+      },
+      {
+        "url": "https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.231.3109&rep=rep1&type=pdf",
+        "result": "HTML rather than PDF"
+      },
+      {
+        "url": "https://www.sciencedirect.com/science/article/pii/S0005109899002149/pdf",
+        "result": "HTTP 403"
+      }
+    ],
+    "access_note": "Local PDF unavailable. Use the DOI link through institutional access or obtain an author copy; save to the listed file path and rerun verification. Tedrake provides the immediate MPC reading route."
+  },
+  {
+    "id": "williams2017",
+    "title": "Information Theoretic Model Predictive Control: Theory and Applications to Autonomous Driving",
+    "year": 2017,
+    "file": "papers/foundations/williams-2017-information-theoretic-mpc.pdf",
+    "source_url": "https://arxiv.org/abs/1707.02342",
+    "pdf_url": "https://arxiv.org/pdf/1707.02342",
+    "verify_terms": [
+      "Information Theoretic Model Predictive Control"
+    ],
+    "status": "downloaded",
+    "resolved_url": "https://arxiv.org/pdf/1707.02342",
+    "pages": 20,
+    "bytes": 4908478,
+    "sha256": "c11163a2c07fccc4bdb7eebe92bfcc31fcfe7f366433262bc2cc320328476363",
+    "verified_at": "2026-09-22T18:13:36.030746+00:00"
+  },
+  {
+    "id": "levine2018",
+    "title": "Reinforcement Learning and Control as Probabilistic Inference: Tutorial and Review",
+    "year": 2018,
+    "file": "papers/foundations/levine-2018-control-as-inference.pdf",
+    "source_url": "https://arxiv.org/abs/1805.00909",
+    "pdf_url": "https://arxiv.org/pdf/1805.00909",
+    "verify_terms": [
+      "Control as Probabilistic Inference"
+    ],
+    "status": "downloaded",
+    "resolved_url": "https://arxiv.org/pdf/1805.00909",
+    "pages": 22,
+    "bytes": 328752,
+    "sha256": "98f4831608edb32de2d80fd5bfd1a7661968f6c4b32559c68d15cee974dc60e2",
+    "verified_at": "2026-09-22T18:13:36.158685+00:00"
+  },
+  {
+    "id": "toussaint2009",
+    "title": "Robot Trajectory Optimization using Approximate Inference",
+    "year": 2009,
+    "file": "papers/foundations/toussaint-2009-trajectory-optimization.pdf",
+    "source_url": "https://icml.cc/2009/papers/271.pdf",
+    "pdf_url": "https://icml.cc/2009/papers/271.pdf",
+    "verify_terms": [
+      "Robot Trajectory Optimization"
+    ],
+    "status": "downloaded",
+    "resolved_url": "https://icml.cc/2009/papers/271.pdf",
+    "pages": 8,
+    "bytes": 429889,
+    "sha256": "86f3167e7e22cbc71d9f6d85a3fc7465916d65139fd9570c3b52cb76694ff0b2",
+    "verified_at": "2026-09-22T18:13:38.201608+00:00"
+  },
+  {
+    "id": "kappen2005",
+    "title": "Path Integrals and Symmetry Breaking for Optimal Control Theory",
+    "year": 2005,
+    "file": "papers/foundations/kappen-2005-path-integrals.pdf",
+    "source_url": "https://arxiv.org/abs/physics/0505066",
+    "pdf_url": "https://arxiv.org/pdf/physics/0505066",
+    "verify_terms": [
+      "Path integrals and symmetry breaking"
+    ],
+    "status": "downloaded",
+    "resolved_url": "https://arxiv.org/pdf/physics/0505066",
+    "pages": 22,
+    "bytes": 600840,
+    "sha256": "1f45aeb0b56c5bb1b2407e2beb3314aa565b4a1116637c738e3c2a31ce52559c",
+    "verified_at": "2026-09-22T18:13:36.795591+00:00"
+  },
+  {
+    "id": "janner2022",
+    "title": "Planning with Diffusion for Flexible Behavior Synthesis",
+    "year": 2022,
+    "file": "papers/generative-control/janner-2022-diffuser.pdf",
+    "source_url": "https://arxiv.org/abs/2205.09991",
+    "pdf_url": "https://arxiv.org/pdf/2205.09991",
+    "verify_terms": [
+      "Planning with Diffusion"
+    ],
+    "status": "downloaded",
+    "resolved_url": "https://arxiv.org/pdf/2205.09991",
+    "pages": 14,
+    "bytes": 10498721,
+    "sha256": "aafe149adb5476e8b8b061c02d26824c42fb14a71ce8ae37b1a0e375452d7a1f",
+    "verified_at": "2026-09-22T18:13:37.578610+00:00"
+  },
+  {
+    "id": "chi2023",
+    "title": "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion",
+    "year": 2023,
+    "file": "papers/generative-control/chi-2023-diffusion-policy.pdf",
+    "source_url": "https://arxiv.org/abs/2303.04137v4",
+    "pdf_url": "https://arxiv.org/pdf/2303.04137v4",
+    "verify_terms": [
+      "Diffusion Policy"
+    ],
+    "status": "downloaded",
+    "resolved_url": "https://arxiv.org/pdf/2303.04137v4",
+    "pages": 16,
+    "bytes": 5834180,
+    "sha256": "75a57946e2cef790775ca5c667b00befc8ea7d64c3a02c5ced3e3d173354640c",
+    "verified_at": "2026-09-22T18:13:37.757689+00:00"
+  },
+  {
+    "id": "brohan2022",
+    "title": "RT-1: Robotics Transformer for Real-World Control at Scale",
+    "year": 2022,
+    "file": "papers/generative-control/brohan-2022-rt1.pdf",
+    "source_url": "https://arxiv.org/abs/2212.06817",
+    "pdf_url": "https://arxiv.org/pdf/2212.06817",
+    "verify_terms": [
+      "Robotics Transformer"
+    ],
+    "status": "downloaded",
+    "resolved_url": "https://arxiv.org/pdf/2212.06817",
+    "pages": 31,
+    "bytes": 14672588,
+    "sha256": "81efe669c8fa50ffc7097886dc78a442fa7a8f7f2451684b93069cb9fbeda767",
+    "verified_at": "2026-09-22T18:13:38.434470+00:00"
+  },
+  {
+    "id": "mandlekar2021",
+    "title": "What Matters in Learning from Offline Human Demonstrations for Robot Manipulation",
+    "year": 2021,
+    "file": "papers/robot-learning/mandlekar-2021-robomimic.pdf",
+    "source_url": "https://arxiv.org/abs/2108.03298",
+    "pdf_url": "https://arxiv.org/pdf/2108.03298",
+    "verify_terms": [
+      "What Matters in Learning"
+    ],
+    "status": "downloaded",
+    "resolved_url": "https://arxiv.org/pdf/2108.03298",
+    "pages": 36,
+    "bytes": 10782355,
+    "sha256": "18283ff9cbb9645de4ccf32ca2de472f452e89761287e7ed578e3a1066bea5f1",
+    "verified_at": "2026-09-22T18:13:38.742795+00:00"
+  },
+  {
+    "id": "tao2024",
+    "title": "ManiSkill3: GPU Parallelized Robotics Simulation and Rendering for Generalizable Embodied AI",
+    "year": 2024,
+    "file": "papers/robot-learning/tao-2024-maniskill3.pdf",
+    "source_url": "https://arxiv.org/abs/2410.00425",
+    "pdf_url": "https://arxiv.org/pdf/2410.00425",
+    "verify_terms": [
+      "ManiSkill3"
+    ],
+    "status": "downloaded",
+    "resolved_url": "https://arxiv.org/pdf/2410.00425",
+    "pages": 30,
+    "bytes": 24411426,
+    "sha256": "0482cef460af5ca0dd09d2b1d0f499b996287d9dadec31b13ca60377a49ee80c",
+    "verified_at": "2026-09-22T18:13:39.188247+00:00"
+  },
+  {
+    "id": "black2025",
+    "title": "Real-Time Execution of Action Chunking Flow Policies",
+    "year": 2025,
+    "file": "papers/realtime/black-2025-real-time-chunking.pdf",
+    "source_url": "https://arxiv.org/abs/2506.07339",
+    "pdf_url": "https://arxiv.org/pdf/2506.07339",
+    "verify_terms": [
+      "Real-Time Execution of Action Chunking"
+    ],
+    "status": "downloaded",
+    "resolved_url": "https://arxiv.org/pdf/2506.07339",
+    "pages": 25,
+    "bytes": 9502903,
+    "sha256": "dd6d602be1f50b894d88517bf68916c4272885b2e29d96cffc426dacff41898f",
+    "verified_at": "2026-09-22T18:13:39.086605+00:00"
+  },
+  {
+    "id": "hafner2023",
+    "title": "Mastering Diverse Domains through World Models (DreamerV3)",
+    "year": 2023,
+    "file": "papers/world-models/hafner-2023-dreamerv3.pdf",
+    "source_url": "https://arxiv.org/abs/2301.04104v1",
+    "pdf_url": "https://arxiv.org/pdf/2301.04104v1",
+    "verify_terms": [
+      "Mastering Diverse Domains"
+    ],
+    "status": "downloaded",
+    "resolved_url": "https://arxiv.org/pdf/2301.04104v1",
+    "pages": 38,
+    "bytes": 2841029,
+    "sha256": "e7c75128590e5558b6eb88b225c5d3da7953ced4de31eb2e775150960e114d94",
+    "verified_at": "2026-09-22T18:13:39.212248+00:00"
+  },
+  {
+    "id": "dreamzero2026",
+    "title": "World Action Models are Zero-shot Policies (DreamZero)",
+    "year": 2026,
+    "file": "papers/world-models/dreamzero-2026-world-action-models.pdf",
+    "source_url": "https://dreamzero0.github.io/",
+    "pdf_url": "https://dreamzero0.github.io/DreamZero.pdf",
+    "verify_terms": [
+      "World Action Models"
+    ],
+    "status": "downloaded",
+    "resolved_url": "https://dreamzero0.github.io/DreamZero.pdf",
+    "pages": 36,
+    "bytes": 17899110,
+    "sha256": "66cd42265b7a51b2e94be5632cf49fe8dc023d138949242795d2b319fd13a348",
+    "verified_at": "2026-09-22T18:13:41.746686+00:00"
+  }
+]

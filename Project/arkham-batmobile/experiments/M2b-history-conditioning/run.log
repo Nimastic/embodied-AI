@@ -1,0 +1,112 @@
+########## HISTORY=1 ##########
+-- Data ---------------------------------------------------------
+  hard: 24 train episodes, 6 held-out
+  mat:  30 episodes, fully held out (transfer check)
+  train  14160 windows (0 dropped at arena resets)
+  test    3540 windows (0 dropped at arena resets)
+  mat    17700 windows (0 dropped at arena resets)
+
+-- Calibrating the analytic baseline on TRAIN only --------------
+  gains forward 0.930  strafe 0.830  rotate 0.770   tau 80 ms
+
+-- Training [residual] -----------------------------------------
+  61,635 parameters
+    epoch   0  train vel MSE 0.001760
+    epoch   5  train vel MSE 0.000045
+    epoch  10  train vel MSE 0.000038
+    epoch  15  train vel MSE 0.000036
+    epoch  20  train vel MSE 0.000035
+    epoch  24  train vel MSE 0.000035
+  trained in 41.9s
+
+  hard (held out)  (n=3540, mean path 0.150 m)
+    predictor       median     mean      p95  % of path
+    naive           31.73mm   32.73mm   60.25mm     22.10%
+    calibrated       5.27mm    5.73mm   11.58mm      3.69%
+    learned          1.38mm    1.51mm    3.07mm      0.98%
+    -> learned BEATS calibrated by 73.8%  (S3 target: 30% better)
+
+  mat (never seen)  (n=17700, mean path 0.132 m)
+    predictor       median     mean      p95  % of path
+    naive           46.06mm   48.63mm   94.65mm     38.66%
+    calibrated      17.30mm   18.96mm   39.43mm     14.71%
+    learned         17.11mm   18.71mm   38.74mm     14.88%
+    -> learned BEATS calibrated by 1.1%  (S3 target: 30% better)
+
+  C:\Users\jerie\Documents\GitHub\embodied-AI\Project\arkham-batmobile\experiments\M2-state-predictor\assets\metrics.json
+  C:\Users\jerie\Documents\GitHub\embodied-AI\Project\arkham-batmobile\experiments\M2-state-predictor\assets\error_vs_horizon.png
+########## HISTORY=5 ##########
+-- Data ---------------------------------------------------------
+  hard: 24 train episodes, 6 held-out
+  mat:  30 episodes, fully held out (transfer check)
+  train  14112 windows (0 dropped at arena resets)
+  test    3528 windows (0 dropped at arena resets)
+  mat    17640 windows (0 dropped at arena resets)
+
+-- Calibrating the analytic baseline on TRAIN only --------------
+  gains forward 0.930  strafe 0.830  rotate 0.770   tau 80 ms
+
+-- Training [residual] -----------------------------------------
+  61,635 parameters
+    epoch   0  train vel MSE 0.001675
+    epoch   5  train vel MSE 0.000042
+    epoch  10  train vel MSE 0.000038
+    epoch  15  train vel MSE 0.000036
+    epoch  20  train vel MSE 0.000036
+    epoch  24  train vel MSE 0.000035
+  trained in 50.0s
+
+  hard (held out)  (n=3528, mean path 0.150 m)
+    predictor       median     mean      p95  % of path
+    naive           31.71mm   32.71mm   60.24mm     22.10%
+    calibrated       5.26mm    5.72mm   11.56mm      3.69%
+    learned          1.34mm    1.48mm    3.03mm      0.96%
+    -> learned BEATS calibrated by 74.5%  (S3 target: 30% better)
+
+  mat (never seen)  (n=17640, mean path 0.132 m)
+    predictor       median     mean      p95  % of path
+    naive           46.04mm   48.61mm   94.61mm     38.66%
+    calibrated      17.30mm   18.96mm   39.42mm     14.73%
+    learned         16.92mm   18.54mm   38.40mm     14.75%
+    -> learned BEATS calibrated by 2.2%  (S3 target: 30% better)
+
+  C:\Users\jerie\Documents\GitHub\embodied-AI\Project\arkham-batmobile\experiments\M2-state-predictor\assets\metrics.json
+  C:\Users\jerie\Documents\GitHub\embodied-AI\Project\arkham-batmobile\experiments\M2-state-predictor\assets\error_vs_horizon.png
+########## HISTORY=20 ##########
+-- Data ---------------------------------------------------------
+  hard: 24 train episodes, 6 held-out
+  mat:  30 episodes, fully held out (transfer check)
+  train  13920 windows (0 dropped at arena resets)
+  test    3480 windows (0 dropped at arena resets)
+  mat    17400 windows (0 dropped at arena resets)
+
+-- Calibrating the analytic baseline on TRAIN only --------------
+  gains forward 0.930  strafe 0.830  rotate 0.770   tau 80 ms
+
+-- Training [residual] -----------------------------------------
+  61,635 parameters
+    epoch   0  train vel MSE 0.001659
+    epoch   5  train vel MSE 0.000043
+    epoch  10  train vel MSE 0.000038
+    epoch  15  train vel MSE 0.000036
+    epoch  20  train vel MSE 0.000035
+    epoch  24  train vel MSE 0.000035
+  trained in 70.9s
+
+  hard (held out)  (n=3480, mean path 0.150 m)
+    predictor       median     mean      p95  % of path
+    naive           31.88mm   32.70mm   60.34mm     22.35%
+    calibrated       5.30mm    5.72mm   11.21mm      3.71%
+    learned          1.36mm    1.50mm    3.10mm      0.96%
+    -> learned BEATS calibrated by 74.3%  (S3 target: 30% better)
+
+  mat (never seen)  (n=17400, mean path 0.131 m)
+    predictor       median     mean      p95  % of path
+    naive           45.98mm   48.51mm   94.17mm     38.66%
+    calibrated      17.22mm   18.90mm   39.32mm     14.73%
+    learned         16.96mm   18.51mm   38.27mm     14.73%
+    -> learned BEATS calibrated by 1.5%  (S3 target: 30% better)
+
+  C:\Users\jerie\Documents\GitHub\embodied-AI\Project\arkham-batmobile\experiments\M2-state-predictor\assets\metrics.json
+  C:\Users\jerie\Documents\GitHub\embodied-AI\Project\arkham-batmobile\experiments\M2-state-predictor\assets\error_vs_horizon.png
+ALLDONE

@@ -1,3 +1,5 @@
+> **ARCHIVED:** Historical reference only. This document is not an active roadmap. `ROADMAP.md` is the sole source of truth for project sequencing and priorities.
+
 # Progress
 
 All stages start uncompleted. Mark a column only when the artifact exists.

@@ -1,0 +1,170 @@
+{
+  "stage": "01-so101-kinematics",
+  "timestamp": "2026-09-29T15:25:30Z",
+  "verification_against_mujoco": {
+    "n_samples": 1000,
+    "fk_pos_error_max_m": 4.805753695326655e-09,
+    "fk_pos_error_mean_m": 3.329425162098915e-09,
+    "fk_rot_error_max": 3.54444567363989e-08,
+    "fk_rot_error_mean": 3.121706772174768e-08,
+    "jacobian_jv_error_max": 6.9996440628985454e-09,
+    "jacobian_jv_error_mean": 5.043422278281057e-09,
+    "jacobian_jw_error_max": 2.1448415035502752e-08,
+    "jacobian_jw_error_mean": 1.8248673365746787e-08
+  },
+  "workspace_analysis": {
+    "volume_m3": 0.12107,
+    "bounding_box": {
+      "x_range": [
+        -0.34,
+        0.341
+      ],
+      "y_range": [
+        -0.384,
+        0.233
+      ],
+      "z_range": [
+        -0.123,
+        0.43
+      ]
+    },
+    "manipulability_stats": {
+      "mean": 0.0026,
+      "median": 0.0024,
+      "max": 0.0067,
+      "min": 0.0
+    },
+    "stage00_target_audit": [
+      {
+        "target": [
+          0.15061428631227525,
+          -0.0183364680743843,
+          0.1787896879867074
+        ],
+        "stage00_success": true,
+        "kinematically_reachable": true,
+        "distance_to_workspace_pointcloud_mm": 11.2,
+        "ik_best_error_mm": 11.0,
+        "azimuth_deg": -6.9,
+        "failure_reason": "Reachable (succeeded in Stage 00)"
+      },
+      {
+        "target": [
+          0.1406578437777173,
+          -0.12174679563370513,
+          0.1963433527455134
+        ],
+        "stage00_success": false,
+        "kinematically_reachable": true,
+        "distance_to_workspace_pointcloud_mm": 4.3,
+        "ik_best_error_mm": 9.2,
+        "azimuth_deg": -40.9,
+        "failure_reason": "Target below reach envelope (hits pitch limit near table)"
+      },
+      {
+        "target": [
+          0.14894816125874588,
+          0.08581929158308613,
+          0.06921704490133189
+        ],
+        "stage00_success": false,
+        "kinematically_reachable": false,
+        "distance_to_workspace_pointcloud_mm": 22.8,
+        "ik_best_error_mm": 72.2,
+        "azimuth_deg": 29.9,
+        "failure_reason": "Target lies in blind spot (+Y sector outside Rotation joint limits)"
+      },
+      {
+        "target": [
+          0.10855017192642373,
+          -0.038760592730225626,
+          0.18901474832729032
+        ],
+        "stage00_success": true,
+        "kinematically_reachable": true,
+        "distance_to_workspace_pointcloud_mm": 9.3,
+        "ik_best_error_mm": 9.3,
+        "azimuth_deg": -19.7,
+        "failure_reason": "Reachable (succeeded in Stage 00)"
+      },
+      {
+        "target": [
+          0.13370246561048638,
+          0.09682848398124899,
+          0.11651212982409968
+        ],
+        "stage00_success": false,
+        "kinematically_reachable": false,
+        "distance_to_workspace_pointcloud_mm": 43.5,
+        "ik_best_error_mm": 87.7,
+        "azimuth_deg": 35.9,
+        "failure_reason": "Target lies in blind spot (+Y sector outside Rotation joint limits)"
+      },
+      {
+        "target": [
+          0.07954103383202099,
+          0.01637543610475045,
+          0.05957258841562631
+        ],
+        "stage00_success": false,
+        "kinematically_reachable": false,
+        "distance_to_workspace_pointcloud_mm": 34.1,
+        "ik_best_error_mm": 30.7,
+        "azimuth_deg": 11.6,
+        "failure_reason": "Target below reach envelope (hits pitch limit near table)"
+      },
+      {
+        "target": [
+          0.15759205235903567,
+          0.039499319736619465,
+          0.16371316101280609
+        ],
+        "stage00_success": false,
+        "kinematically_reachable": false,
+        "distance_to_workspace_pointcloud_mm": 35.7,
+        "ik_best_error_mm": 25.7,
+        "azimuth_deg": 14.1,
+        "failure_reason": "Target lies in blind spot (+Y sector outside Rotation joint limits)"
+      },
+      {
+        "target": [
+          0.0960883758568829,
+          0.14120940731847095,
+          0.18396816819832967
+        ],
+        "stage00_success": false,
+        "kinematically_reachable": false,
+        "distance_to_workspace_pointcloud_mm": 17.0,
+        "ik_best_error_mm": 142.3,
+        "azimuth_deg": 55.8,
+        "failure_reason": "Target lies in blind spot (+Y sector outside Rotation joint limits)"
+      },
+      {
+        "target": [
+          0.15118985461958906,
+          -0.09160838764440973,
+          0.12000815055905514
+        ],
+        "stage00_success": true,
+        "kinematically_reachable": true,
+        "distance_to_workspace_pointcloud_mm": 8.5,
+        "ik_best_error_mm": 11.4,
+        "azimuth_deg": -31.2,
+        "failure_reason": "Reachable (succeeded in Stage 00)"
+      },
+      {
+        "target": [
+          0.05569448955233974,
+          -0.10371315237973565,
+          0.1524573429863682
+        ],
+        "stage00_success": true,
+        "kinematically_reachable": true,
+        "distance_to_workspace_pointcloud_mm": 5.6,
+        "ik_best_error_mm": 10.5,
+        "azimuth_deg": -61.8,
+        "failure_reason": "Reachable (succeeded in Stage 00)"
+      }
+    ]
+  }
+}

@@ -1,5 +1,6 @@
 # Local reading copies and private conversation
 papers/**/*.pdf
+archive/**/*.pdf
 sources/conversation-original.txt
 # Experiment assets
 **/data/
@@ -8,3 +9,9 @@ sources/conversation-original.txt
 **/__pycache__/
 .venv/
 *.pyc
+
+# Vendored upstream clone (has its own .git) - re-clone instead of committing
+stages/**/mujoco_menagerie/
+
+# Simulated/collected datasets
+**/data/sim/

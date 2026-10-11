@@ -1,0 +1,141 @@
+{
+  "primary_episode": {
+    "target": [
+      0.1,
+      -0.1,
+      0.12
+    ],
+    "success": true,
+    "steps": 183,
+    "final_distance_mm": 14.8,
+    "min_distance_mm": 14.9
+  },
+  "evaluation": {
+    "n_targets": 10,
+    "success_rate": 0.4,
+    "successes": 4,
+    "avg_final_distance_mm": 48.8,
+    "avg_min_distance_mm": 48.8,
+    "results": [
+      {
+        "target": [
+          0.15061428631227525,
+          -0.0183364680743843,
+          0.1787896879867074
+        ],
+        "success": true,
+        "final_distance": 0.014933916540676983,
+        "min_distance": 0.014978390163055032,
+        "steps": 244
+      },
+      {
+        "target": [
+          0.1406578437777173,
+          -0.12174679563370513,
+          0.1963433527455134
+        ],
+        "success": false,
+        "final_distance": 0.01512633480814583,
+        "min_distance": 0.015127875966737765,
+        "steps": 500
+      },
+      {
+        "target": [
+          0.14894816125874588,
+          0.08581929158308613,
+          0.06921704490133189
+        ],
+        "success": false,
+        "final_distance": 0.08155943819346105,
+        "min_distance": 0.08154198972710532,
+        "steps": 500
+      },
+      {
+        "target": [
+          0.10855017192642373,
+          -0.038760592730225626,
+          0.18901474832729032
+        ],
+        "success": true,
+        "final_distance": 0.014783785922143269,
+        "min_distance": 0.014943984376703974,
+        "steps": 218
+      },
+      {
+        "target": [
+          0.13370246561048638,
+          0.09682848398124899,
+          0.11651212982409968
+        ],
+        "success": false,
+        "final_distance": 0.08908354964169345,
+        "min_distance": 0.08908584684038603,
+        "steps": 500
+      },
+      {
+        "target": [
+          0.07954103383202099,
+          0.01637543610475045,
+          0.05957258841562631
+        ],
+        "success": false,
+        "final_distance": 0.06949420088910421,
+        "min_distance": 0.06950306864846283,
+        "steps": 500
+      },
+      {
+        "target": [
+          0.15759205235903567,
+          0.039499319736619465,
+          0.16371316101280609
+        ],
+        "success": false,
+        "final_distance": 0.030170994252205107,
+        "min_distance": 0.03017185375554014,
+        "steps": 500
+      },
+      {
+        "target": [
+          0.0960883758568829,
+          0.14120940731847095,
+          0.18396816819832967
+        ],
+        "success": false,
+        "final_distance": 0.14311821315197798,
+        "min_distance": 0.1431189452543491,
+        "steps": 500
+      },
+      {
+        "target": [
+          0.15118985461958906,
+          -0.09160838764440973,
+          0.12000815055905514
+        ],
+        "success": true,
+        "final_distance": 0.014821305111900971,
+        "min_distance": 0.014962137580753182,
+        "steps": 171
+      },
+      {
+        "target": [
+          0.05569448955233974,
+          -0.10371315237973565,
+          0.1524573429863682
+        ],
+        "success": true,
+        "final_distance": 0.014886213377179864,
+        "min_distance": 0.014964836190817525,
+        "steps": 340
+      }
+    ]
+  },
+  "config": {
+    "reaching_threshold_mm": 15.0,
+    "max_steps": 500,
+    "control_dt": 0.02,
+    "physics_timestep": 0.002,
+    "controller": "damped_least_squares_ik",
+    "gain": 8.0,
+    "damping": 0.01
+  }
+}

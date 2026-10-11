@@ -47,6 +47,7 @@ from sim.mecanum_env import CONTROL_DT, first_order_lag  # noqa: E402
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data" / "sim"
 ASSETS = ROOT.parent / "experiments" / "M2-state-predictor" / "assets"
+CKPT_DIR = ROOT / "checkpoints"
 RUN_TAG = ""
 
 HORIZON = 20                       # 20 ticks @ 20 Hz = 1.0 s
@@ -391,6 +392,26 @@ def main() -> None:
             "mat_transfer": evaluate(kin, d_mat, gains, tau, model, "mat (never seen)"),
         }
         report["variants"][variant] = {"n_params": n_params, "evals": evals}
+
+        # Checkpoint everything the planner needs to reconstruct this predictor:
+        # weights, architecture, and the calibration the residual sits on top of.
+        ckpt = CKPT_DIR / f"state_model-{variant}-h{args.history}.pt"
+        CKPT_DIR.mkdir(parents=True, exist_ok=True)
+        torch.save(
+            {
+                "state_dict": model.state_dict(),
+                "feat_dim": d_train["hist"].shape[2],
+                "hidden": 96,
+                "variant": variant,
+                "history": args.history,
+                "horizon": HORIZON,
+                "gains": gains.tolist(),
+                "tau": tau,
+                "trained_on": "hard",
+            },
+            ckpt,
+        )
+        print(f"  checkpoint -> {ckpt}")
 
         for key, ev in evals.items():
             print(f"\n  {ev['split']}  (n={ev['n_windows']}, mean path "

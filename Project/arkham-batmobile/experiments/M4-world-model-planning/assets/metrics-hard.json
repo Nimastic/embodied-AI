@@ -1,0 +1,129 @@
+{
+  "surface": "hard",
+  "trials": 40,
+  "chunks": [
+    1,
+    3,
+    8,
+    15
+  ],
+  "conditions": {
+    "reactive": {
+      "success_rate": 0.75,
+      "collision_rate": 0.25,
+      "median_time_s": 2.5,
+      "median_min_post_dist_mm": 98.4,
+      "mean_plan_divergence_mm": null,
+      "median_plan_ms": null,
+      "n_trials": 40
+    },
+    "mppi-naive@chunk1": {
+      "success_rate": 1.0,
+      "collision_rate": 0.0,
+      "median_time_s": 2.95,
+      "median_min_post_dist_mm": 105.7,
+      "mean_plan_divergence_mm": 3.07,
+      "median_plan_ms": 2.1,
+      "n_trials": 40
+    },
+    "mppi-calibrated@chunk1": {
+      "success_rate": 1.0,
+      "collision_rate": 0.0,
+      "median_time_s": 2.85,
+      "median_min_post_dist_mm": 101.2,
+      "mean_plan_divergence_mm": 0.47,
+      "median_plan_ms": 20.3,
+      "n_trials": 40
+    },
+    "mppi-learned@chunk1": {
+      "success_rate": 1.0,
+      "collision_rate": 0.0,
+      "median_time_s": 2.85,
+      "median_min_post_dist_mm": 101.7,
+      "mean_plan_divergence_mm": 0.1,
+      "median_plan_ms": 40.5,
+      "n_trials": 40
+    },
+    "mppi-naive@chunk3": {
+      "success_rate": 1.0,
+      "collision_rate": 0.0,
+      "median_time_s": 2.8,
+      "median_min_post_dist_mm": 103.3,
+      "mean_plan_divergence_mm": 7.32,
+      "median_plan_ms": 2.1,
+      "n_trials": 40
+    },
+    "mppi-calibrated@chunk3": {
+      "success_rate": 1.0,
+      "collision_rate": 0.0,
+      "median_time_s": 2.8,
+      "median_min_post_dist_mm": 101.0,
+      "mean_plan_divergence_mm": 1.23,
+      "median_plan_ms": 20.1,
+      "n_trials": 40
+    },
+    "mppi-learned@chunk3": {
+      "success_rate": 1.0,
+      "collision_rate": 0.0,
+      "median_time_s": 2.8,
+      "median_min_post_dist_mm": 101.1,
+      "mean_plan_divergence_mm": 0.81,
+      "median_plan_ms": 40.6,
+      "n_trials": 40
+    },
+    "mppi-naive@chunk8": {
+      "success_rate": 0.825,
+      "collision_rate": 0.175,
+      "median_time_s": 2.6,
+      "median_min_post_dist_mm": 97.2,
+      "mean_plan_divergence_mm": 20.51,
+      "median_plan_ms": 2.1,
+      "n_trials": 40
+    },
+    "mppi-calibrated@chunk8": {
+      "success_rate": 0.925,
+      "collision_rate": 0.075,
+      "median_time_s": 2.65,
+      "median_min_post_dist_mm": 99.7,
+      "mean_plan_divergence_mm": 6.48,
+      "median_plan_ms": 20.1,
+      "n_trials": 40
+    },
+    "mppi-learned@chunk8": {
+      "success_rate": 0.95,
+      "collision_rate": 0.05,
+      "median_time_s": 2.65,
+      "median_min_post_dist_mm": 99.6,
+      "mean_plan_divergence_mm": 5.65,
+      "median_plan_ms": 21.8,
+      "n_trials": 40
+    },
+    "mppi-naive@chunk15": {
+      "success_rate": 0.475,
+      "collision_rate": 0.525,
+      "median_time_s": 2.7,
+      "median_min_post_dist_mm": 86.5,
+      "mean_plan_divergence_mm": 47.66,
+      "median_plan_ms": 1.1,
+      "n_trials": 40
+    },
+    "mppi-calibrated@chunk15": {
+      "success_rate": 0.7,
+      "collision_rate": 0.3,
+      "median_time_s": 2.7,
+      "median_min_post_dist_mm": 93.2,
+      "mean_plan_divergence_mm": 21.47,
+      "median_plan_ms": 8.0,
+      "n_trials": 40
+    },
+    "mppi-learned@chunk15": {
+      "success_rate": 0.725,
+      "collision_rate": 0.275,
+      "median_time_s": 2.75,
+      "median_min_post_dist_mm": 94.3,
+      "mean_plan_divergence_mm": 20.18,
+      "median_plan_ms": 22.1,
+      "n_trials": 40
+    }
+  }
+}

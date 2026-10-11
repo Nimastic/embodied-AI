@@ -176,6 +176,14 @@ plan, and what actually happened. Video of a successful and a failed gate traver
 reality rejects. Log planned-versus-actual divergence every episode; if the gap is large, penalize
 action magnitude and jerk and clamp samples to the training action distribution.
 
+**Status: done in simulation.** The question "does a better world model help?" has no answer
+without specifying the replan rate, so M4 became a sweep over it. At 50-150 ms chunks every
+predictor scores 100%; at 750 ms, naive 47.5% / calibrated 70% / learned 72.5%, against 75% for
+model-free reactive. Most of the gain is calibration (+22.5 pts), not learning (+2.5 pts, within
+noise) - because the learned model's accuracy advantage drops from 83% to 35% under the planner's
+action distribution. Write-up:
+[`experiments/M4-world-model-planning/`](experiments/M4-world-model-planning/README.md).
+
 **Just-in-time learning.** `papers/foundations/williams-2017-information-theoretic-mpc.pdf` is the
 MPPI paper and is directly implementable. `papers/foundations/levine-2018-control-as-inference.pdf`
 for why this is planning as inference.

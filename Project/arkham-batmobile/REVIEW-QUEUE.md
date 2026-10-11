@@ -14,6 +14,7 @@ restructure. Say the word and it gets committed.
 |---|---|---|
 | 1 | [experiments/M2-state-predictor/README.md](experiments/M2-state-predictor/README.md) | The headline result, and the baseline bug that nearly faked it. If you only read one thing, this. |
 | 1b | [experiments/M2b-history-conditioning/README.md](experiments/M2b-history-conditioning/README.md) | My proposed fix failed. Includes why, and why I should have predicted it. Short. |
+| 1c | [experiments/M4-world-model-planning/README.md](experiments/M4-world-model-planning/README.md) | The payoff experiment. Planning works, but most of the benefit comes from four fitted scalars rather than the neural network — and why. Also a cost-function bug that nearly became a false finding. |
 | 2 | [hardware/BOM.md](hardware/BOM.md) | **Spends your money.** ~$450 for the learning robot. I chose Pi 5 over Jetson and slow encoder motors over brushless — both are reversible now and expensive later. |
 | 3 | [PRD.md](PRD.md) § 3 | The eight success criteria. If you disagree with what "done" means, now is the cheap time to say so. |
 
@@ -53,3 +54,4 @@ restructure. Say the word and it gets committed.
 | 2026-10-11 | M2 state predictor trained. 1.40 mm vs 5.27 mm calibrated on hard floor; no transfer to unseen surface. |
 | 2026-10-11 | M2b: **hypothesis rejected.** History does not help — the surface is only 69% identifiable from proprioception even with 4 s of it. Redirects toward vision. |
 | 2026-10-11 | Simulator fix: `hard` and `mat` now look different, not just grip different. Any frame dataset from before today is stale. |
+| 2026-10-11 | M4 MPPI planning. Replan rate dominates model quality; calibration captures most of the gain; learned model degrades 83% -> 35% advantage under the planner's own action distribution. Plans in 40 ms on CPU, so Pi-feasible. |

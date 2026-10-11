@@ -25,6 +25,7 @@ Usage:
 import argparse
 import json
 import subprocess
+import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -32,7 +33,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from mecanum_env import (
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from sim.mecanum_env import (
     ACTION_LIMITS,
     clamp_action,
     CONTROL_DT,

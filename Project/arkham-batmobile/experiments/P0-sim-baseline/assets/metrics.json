@@ -1,0 +1,91 @@
+{
+  "control_hz": 20.0,
+  "action_limits": [
+    0.5,
+    0.5,
+    2.0
+  ],
+  "image_size": 64,
+  "throughput_ticks_per_s": 9831.1,
+  "render_fps_64px": 894.3,
+  "actuator_tau": {
+    "translate": {
+      "tau_ms": 59.3,
+      "steady_state": 0.3996
+    },
+    "rotate": {
+      "tau_ms": 60.2,
+      "steady_state": 1.4899
+    }
+  },
+  "delivered_fraction": {
+    "forward": {
+      "commanded": 0.4,
+      "achieved": 0.367,
+      "delivered_fraction": 0.9175,
+      "clean_ticks": 40
+    },
+    "strafe": {
+      "commanded": 0.4,
+      "achieved": 0.3236,
+      "delivered_fraction": 0.809,
+      "clean_ticks": 40
+    },
+    "rotate": {
+      "commanded": 1.5,
+      "achieved": 1.2999,
+      "delivered_fraction": 0.8666,
+      "clean_ticks": 40
+    }
+  },
+  "analytic_baseline": [
+    {
+      "surface": "hard",
+      "horizon_s": 1.0,
+      "n_train": 139,
+      "n_test": 93,
+      "fitted_mode_gains": {
+        "forward": 1.0,
+        "strafe": 0.88,
+        "rotate": 0.88
+      },
+      "fitted_tau_s": 0.12,
+      "predictors": {
+        "naive": {
+          "mean_mm": 31.1,
+          "median_mm": 31.7,
+          "p95_mm": 54.1
+        },
+        "calibrated": {
+          "mean_mm": 13.1,
+          "median_mm": 13.4,
+          "p95_mm": 20.9
+        }
+      }
+    },
+    {
+      "surface": "mat",
+      "horizon_s": 1.0,
+      "n_train": 139,
+      "n_test": 93,
+      "fitted_mode_gains": {
+        "forward": 0.93,
+        "strafe": 0.72,
+        "rotate": 0.77
+      },
+      "fitted_tau_s": 0.11,
+      "predictors": {
+        "naive": {
+          "mean_mm": 49.9,
+          "median_mm": 49.1,
+          "p95_mm": 92.8
+        },
+        "calibrated": {
+          "mean_mm": 11.9,
+          "median_mm": 11.8,
+          "p95_mm": 21.0
+        }
+      }
+    }
+  ]
+}

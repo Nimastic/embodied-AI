@@ -1,0 +1,155 @@
+<mujoco model="mecanum_base">
+  <!--
+    Phase 0 mecanum base: a 2x2 m arena mirroring the real taped arena.
+
+    MODELLING CHOICE: the chassis is a planar body (slide x, slide y, hinge z)
+    driven by velocity actuators. The four mecanum wheels are VISUAL ONLY
+    (contype=0) and their rollers are not simulated.
+
+    Why: simulating 36 roller bodies with contacts would be slow, fragile, and
+    would answer the wrong question. The goal is not a faithful contact model of
+    mecanum hardware - it is a plant whose analytic model is almost-but-not-quite
+    right, so the learned world model has a real residual to predict. Slip is
+    injected in the command path by slip_model.py, exactly where it happens on
+    real hardware: between commanded wheel speed and achieved wheel speed.
+
+    The velocity actuators give a first-order lag for free (tau = mass / kv),
+    which stands in for finite motor-PID bandwidth.
+  -->
+
+  <compiler angle="radian" autolimits="true"/>
+  <option timestep="0.002" integrator="implicitfast"/>
+
+  <visual>
+    <!-- Offscreen buffer caps render size. 64x64 is what models see, but
+         figures and demo videos want more. -->
+    <global offwidth="1280" offheight="1280"/>
+    <quality shadowsize="2048"/>
+    <headlight ambient="0.4 0.4 0.4" diffuse="0.6 0.6 0.6"/>
+  </visual>
+
+  <asset>
+    <!-- One material per surface. A real mat does not just grip differently, it
+         LOOKS different - and M2b showed the surface is only ~69% identifiable
+         from proprioception even with 4 s of history, so appearance may be the
+         only practical way to know what you are driving on. Keeping both
+         surfaces visually identical would have made that untestable. -->
+    <texture name="floor_tex" type="2d" builtin="checker" width="300" height="300"
+             rgb1="0.22 0.22 0.25" rgb2="0.29 0.29 0.33"/>
+    <material name="floor_hard" texture="floor_tex" texrepeat="10 10" reflectance="0.05"/>
+
+    <texture name="floor_tex_mat" type="2d" builtin="checker" width="300" height="300"
+             rgb1="0.34 0.26 0.20" rgb2="0.40 0.32 0.25"/>
+    <material name="floor_mat_surf" texture="floor_tex_mat" texrepeat="26 26" reflectance="0.0"/>
+    <material name="wall_mat"  rgba="0.45 0.45 0.50 1"/>
+    <material name="body_mat"  rgba="0.10 0.10 0.12 1"/>
+    <material name="tyre_mat"  rgba="0.18 0.18 0.20 1"/>
+    <material name="roller_mat" rgba="0.65 0.62 0.55 1"/>
+    <material name="marker_mat" rgba="0.95 0.95 0.95 1"/>
+  </asset>
+
+  <default>
+    <!-- Visual-only geoms: no contacts anywhere except chassis vs walls -->
+    <default class="visual">
+      <geom contype="0" conaffinity="0" group="1"/>
+    </default>
+  </default>
+
+  <worldbody>
+    <light pos="0 0 3.0" dir="0 0 -1" diffuse="0.7 0.7 0.7" specular="0.1 0.1 0.1"/>
+    <light pos="1.2 1.2 2.0" dir="-0.4 -0.4 -1" diffuse="0.3 0.3 0.3"/>
+
+    <geom name="floor" type="plane" size="1.2 1.2 0.05" material="floor_hard"/>
+
+    <!-- Arena walls. These DO collide with the chassis: driving into a wall and
+         stopping is real dynamics the world model should learn. -->
+    <geom name="wall_px" type="box" pos=" 1.02 0 0.075" size="0.02 1.04 0.075" material="wall_mat"/>
+    <geom name="wall_nx" type="box" pos="-1.02 0 0.075" size="0.02 1.04 0.075" material="wall_mat"/>
+    <geom name="wall_py" type="box" pos="0  1.02 0.075" size="1.04 0.02 0.075" material="wall_mat"/>
+    <geom name="wall_ny" type="box" pos="0 -1.02 0.075" size="1.04 0.02 0.075" material="wall_mat"/>
+
+    <!-- Landmarks. Asymmetric and distinctly coloured on purpose: the front
+         camera view has to disambiguate pose, or M3 video prediction has nothing
+         to key on and the model just learns "blurry grey moves slightly". -->
+    <geom name="lm_red"    class="visual" type="box"      pos=" 0.85  0.55 0.12" size="0.05 0.05 0.12" rgba="0.80 0.20 0.18 1"/>
+    <geom name="lm_amber"  class="visual" type="box"      pos="-0.70  0.80 0.09" size="0.06 0.06 0.09" rgba="0.90 0.62 0.15 1"/>
+    <geom name="lm_teal"   class="visual" type="cylinder" pos="-0.80 -0.60 0.14" size="0.05 0.14"      rgba="0.11 0.62 0.46 1"/>
+    <geom name="lm_purple" class="visual" type="cylinder" pos=" 0.55 -0.85 0.10" size="0.04 0.10"      rgba="0.50 0.46 0.72 1"/>
+    <geom name="lm_white"  class="visual" type="box"      pos=" 0.05  0.95 0.07" size="0.14 0.02 0.07" rgba="0.90 0.90 0.88 1"/>
+
+    <!-- M4 gate posts. Mocap bodies so the env can randomise the gate per episode. -->
+    <body name="gate_l" mocap="true" pos="0.5 0.22 0.1">
+      <geom class="visual" type="cylinder" size="0.022 0.10" rgba="0.95 0.75 0.10 1"/>
+    </body>
+    <body name="gate_r" mocap="true" pos="0.5 -0.22 0.1">
+      <geom class="visual" type="cylinder" size="0.022 0.10" rgba="0.95 0.75 0.10 1"/>
+    </body>
+
+    <camera name="overhead" pos="0 0 2.6" fovy="52"/>
+    <camera name="chase" pos="-1.5 -1.5 1.1" xyaxes="0.707 -0.707 0 0.3 0.3 0.9"/>
+
+    <!-- ── The robot ─────────────────────────────────────────────────────── -->
+    <body name="chassis" pos="0 0 0.045">
+      <joint name="slide_x" type="slide" axis="1 0 0" damping="0.05"/>
+      <joint name="slide_y" type="slide" axis="0 1 0" damping="0.05"/>
+      <joint name="hinge_z" type="hinge" axis="0 0 1" damping="0.002"/>
+
+      <!-- 200 x 130 x 50 mm hull, 2.2 kg. The only colliding geom on the robot. -->
+      <geom name="hull" type="box" size="0.10 0.065 0.025" material="body_mat" mass="2.2"/>
+
+      <!-- Nose, so the front of the robot is visible in the overhead view -->
+      <geom name="nose" class="visual" type="box" pos="0.105 0 0.0" size="0.012 0.030 0.012" rgba="0.85 0.18 0.15 1"/>
+
+      <!-- Fiducial patch: the sim stand-in for the ArUco marker on the real roof -->
+      <geom name="fiducial" class="visual" type="box" pos="0 0 0.026" size="0.040 0.040 0.002" material="marker_mat"/>
+
+      <!-- Wheels: visual only. Axles along body y. Positions must match
+           MecanumGeometry: l=0.090, w=0.075, r=0.040. -->
+      <geom name="wheel_fl" class="visual" type="cylinder" fromto=" 0.090  0.063 -0.005  0.090  0.087 -0.005" size="0.040" material="tyre_mat"/>
+      <geom name="wheel_fr" class="visual" type="cylinder" fromto=" 0.090 -0.087 -0.005  0.090 -0.063 -0.005" size="0.040" material="tyre_mat"/>
+      <geom name="wheel_rl" class="visual" type="cylinder" fromto="-0.090  0.063 -0.005 -0.090  0.087 -0.005" size="0.040" material="tyre_mat"/>
+      <geom name="wheel_rr" class="visual" type="cylinder" fromto="-0.090 -0.087 -0.005 -0.090 -0.063 -0.005" size="0.040" material="tyre_mat"/>
+
+      <!-- Roller hint stripes, leaning in the mirrored X pattern (FL/RR one way,
+           FR/RL the other) so the convention is visible in a screenshot. -->
+      <geom name="roll_fl" class="visual" type="box" pos=" 0.090  0.075 0.034" size="0.028 0.013 0.003" euler="0 0  0.785" material="roller_mat"/>
+      <geom name="roll_fr" class="visual" type="box" pos=" 0.090 -0.075 0.034" size="0.028 0.013 0.003" euler="0 0 -0.785" material="roller_mat"/>
+      <geom name="roll_rl" class="visual" type="box" pos="-0.090  0.075 0.034" size="0.028 0.013 0.003" euler="0 0 -0.785" material="roller_mat"/>
+      <geom name="roll_rr" class="visual" type="box" pos="-0.090 -0.075 0.034" size="0.028 0.013 0.003" euler="0 0  0.785" material="roller_mat"/>
+
+      <!-- Forward camera: Pi Camera Module 3 Wide stand-in.
+           Camera frame is x-right, y-up, -z-forward. Level forward would be
+           xyaxes="0 -1 0  0 0 1"; this is that tilted 15 degrees down, so the
+           floor fills the frame instead of ~40% being dead black sky. At 64x64
+           every wasted row is 1.5% of the model's entire observation, and the
+           checker floor is the main source of optical flow. Mount the real
+           camera the same way. -->
+      <camera name="front" pos="0.095 0 0.055" xyaxes="0 -1 0  0.2588 0 0.9659" fovy="78"/>
+
+      <site name="body_origin" pos="0 0 0" size="0.005"/>
+    </body>
+  </worldbody>
+
+  <!--
+    Velocity actuators on the planar joints. ctrl is a target velocity, and the
+    applied force is kv * (ctrl - qvel), so the response is first order with
+    tau ~ mass/kv. Tuned for tau ~ 80 ms, which is a plausible geared-DC + PID
+    bandwidth. measure_lag() in mecanum_env.py verifies this empirically rather
+    than trusting the arithmetic.
+
+    NOTE: the slide joints are WORLD frame. The env rotates body-frame commands
+    into world frame every control step (kinematics.mecanum.body_to_world).
+  -->
+  <actuator>
+    <velocity name="vel_x" joint="slide_x" kv="46.0" ctrlrange="-1.2 1.2"/>
+    <velocity name="vel_y" joint="slide_y" kv="46.0" ctrlrange="-1.2 1.2"/>
+    <velocity name="vel_t" joint="hinge_z" kv="0.295" ctrlrange="-4.0 4.0"/>
+  </actuator>
+
+  <sensor>
+    <framepos    name="pose_pos"  objtype="site" objname="body_origin"/>
+    <framequat   name="pose_quat" objtype="site" objname="body_origin"/>
+    <gyro        name="imu_gyro"  site="body_origin"/>
+    <accelerometer name="imu_acc" site="body_origin"/>
+  </sensor>
+</mujoco>

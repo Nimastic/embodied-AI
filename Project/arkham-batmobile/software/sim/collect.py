@@ -125,6 +125,11 @@ def _row(episode_id: str, obs: dict, frame_idx: int) -> dict:
         "body_vel_avg": obs["body_vel_avg"].astype(np.float32),
         "scrub": np.float32(obs["scrub"]),
         "batt_v": np.float32(obs["batt_v"]),
+        # Documented in software/README.md and meaningless in sim, but the column
+        # must exist or the sim and robot schemas diverge before robot/logger.py
+        # is even written. NaN is the honest value for "this machine has no such
+        # sensor", and it is loud if anything tries to train on it.
+        "cpu_temp": np.float32("nan"),
         "saturated": obs["saturated"],
         "frame_idx": np.int32(frame_idx),
         "t_frame_mono": obs["t_mono"],      # sim renders synchronously; real rig will not

@@ -97,19 +97,21 @@ From `python mecanum_env.py` on this machine:
 | Actuator time constant | 59 ms translate, 60 ms rotate | — |
 | Delivered fraction, forward / strafe / rotate | 92% / 81% / 87% | — |
 | **Naive analytic**, 1.0 s pose error (median) | 31.7 mm | 49.1 mm |
-| **Calibrated analytic**, 1.0 s pose error (median) | **13.4 mm** | **11.8 mm** |
+| **Calibrated analytic**, 1.0 s pose error (median) | **4.7 mm** | **4.7 mm** |
 
 Throughput: ~9,600 ticks/s physics-only (480× real time), ~940 renders/s at 64 × 64.
 
-**The 13.4 mm figure is M2's target.** Beating the naive number proves nothing — fitting four
-scalars is an afternoon's work.
+**The 4.7 mm figure is M2's target.** Beating the naive number proves nothing — fitting four
+scalars is an afternoon's work. (This read 13.4 mm until 2026-10-13; the lag filter was
+cold-started. See the correction in `experiments/P0-sim-baseline/README.md`.)
 
 Two things to be careful about when reading that table:
 
-- The calibrated fit recovers gains of 0.88 strafe / 1.00 forward on hard and 0.72 / 0.93 on mat,
+- The calibrated fit recovers gains of 0.83 strafe / 0.93 forward on hard and 0.68 / 0.88 on mat,
   which matches the ground-truth ordering built into `slip_model.py`. That is a consistency check
   on the whole pipeline, not a result.
-- Mat shows *lower* absolute error than hard, which is not mat being easier — the robot simply
+- Mat and hard show near-identical absolute error after the correction, which is not mat being
+  equally easy — the robot simply
   travels less far per second when it slips more. Absolute millimetres are confounded with path
   length. **For M1 and M2, normalise error by distance travelled** before comparing across
   surfaces.
@@ -119,7 +121,7 @@ Two things to be careful about when reading that table:
 1. Watch `--viewer` for two minutes.
 2. `python collect.py --minutes 30` on each surface — that is the M0 dataset.
 3. M2: train `(state, actions) → future states`, predicting the **residual on top of the
-   calibrated analytic model**. Beat 13.4 mm.
+   calibrated analytic model**. Beat 4.7 mm.
 
 Training on CPU torch is fine for M2 (small MLP/GRU). M3's latent video model wants a GPU — use
 Colab.

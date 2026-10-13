@@ -6,8 +6,8 @@
     2.0
   ],
   "image_size": 64,
-  "throughput_ticks_per_s": 9831.1,
-  "render_fps_64px": 894.3,
+  "throughput_ticks_per_s": 8282.3,
+  "render_fps_64px": 719.0,
   "actuator_tau": {
     "translate": {
       "tau_ms": 59.3,
@@ -45,11 +45,11 @@
       "n_train": 139,
       "n_test": 93,
       "fitted_mode_gains": {
-        "forward": 1.0,
-        "strafe": 0.88,
-        "rotate": 0.88
+        "forward": 0.93,
+        "strafe": 0.83,
+        "rotate": 0.79
       },
-      "fitted_tau_s": 0.12,
+      "fitted_tau_s": 0.08,
       "predictors": {
         "naive": {
           "mean_mm": 31.1,
@@ -57,9 +57,9 @@
           "p95_mm": 54.1
         },
         "calibrated": {
-          "mean_mm": 13.1,
-          "median_mm": 13.4,
-          "p95_mm": 20.9
+          "mean_mm": 5.2,
+          "median_mm": 4.7,
+          "p95_mm": 10.0
         }
       }
     },
@@ -69,11 +69,11 @@
       "n_train": 139,
       "n_test": 93,
       "fitted_mode_gains": {
-        "forward": 0.93,
-        "strafe": 0.72,
-        "rotate": 0.77
+        "forward": 0.88,
+        "strafe": 0.68,
+        "rotate": 0.7
       },
-      "fitted_tau_s": 0.11,
+      "fitted_tau_s": 0.08,
       "predictors": {
         "naive": {
           "mean_mm": 49.9,
@@ -81,9 +81,9 @@
           "p95_mm": 92.8
         },
         "calibrated": {
-          "mean_mm": 11.9,
-          "median_mm": 11.8,
-          "p95_mm": 21.0
+          "mean_mm": 5.0,
+          "median_mm": 4.7,
+          "p95_mm": 9.1
         }
       }
     }

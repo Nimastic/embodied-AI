@@ -37,8 +37,9 @@ collapses on real floors, and you learn nothing from the comparison.
 
 **Status: done.** See [`software/sim/README.md`](software/sim/README.md) and
 [`experiments/P0-sim-baseline/`](experiments/P0-sim-baseline/README.md). Calibrated analytic
-baseline: 13.4 mm median 1.0 s pose error on hard floor, 11.8 mm on mat. Three bugs caught and
-documented in that write-up.
+baseline: **4.7 mm** median 1.0 s pose error on both surfaces. Three bugs caught and documented in
+that write-up, plus a fourth (cold-started lag filter, originally published as 13.4 mm) found later
+by the regression suite and corrected on 2026-10-13.
 
 ---
 

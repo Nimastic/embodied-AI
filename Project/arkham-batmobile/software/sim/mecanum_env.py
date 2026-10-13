@@ -391,15 +391,20 @@ def measure_delivered_fraction(surface: str = "hard") -> dict:
 
 def collect_windows(
     surface: str, n_episodes: int, horizon_ticks: int, seed: int
-) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """
-    Gather (start_pose, action_sequence, true_end_pose) windows for evaluating
-    multi-step predictors. Windows that run into a wall are discarded: a tick
-    where the commanded action has no effect is not a dynamics sample, it is a
-    contact event, and mixing the two flatters every predictor equally.
+    Gather (start_pose, action_sequence, true_end_pose, start_velocity) windows
+    for evaluating multi-step predictors. Windows that run into a wall are
+    discarded: a tick where the commanded action has no effect is not a dynamics
+    sample, it is a contact event, and mixing the two flatters every predictor
+    equally.
+
+    start_velocity is returned because the analytic baseline needs it. Omitting
+    it asserts the robot is at rest at the start of every window, which is false
+    for almost all of them and halves the baseline's measured quality.
     """
     rng = np.random.default_rng(seed)
-    starts, seqs, ends = [], [], []
+    starts, seqs, ends, vel0 = [], [], [], []
 
     for ep in range(n_episodes):
         env = MecanumEnv(surface=surface, seed=seed + ep)
@@ -409,6 +414,7 @@ def collect_windows(
         i = 0
         while i < len(plan) - horizon_ticks:
             start_pose = obs["pose_gt"].copy()
+            start_vel = obs["body_vel_avg"].copy()
             applied, hit_wall = [], False
             for k in range(horizon_ticks):
                 a = wall_avoiding_action(obs, plan[i + k])
@@ -421,12 +427,13 @@ def collect_windows(
                 starts.append(start_pose)
                 seqs.append(np.array(applied))
                 ends.append(obs["pose_gt"].copy())
+                vel0.append(start_vel)
             else:
                 obs = env.reset()
             i += horizon_ticks
         env.close()
 
-    return np.array(starts), np.array(seqs), np.array(ends)
+    return np.array(starts), np.array(seqs), np.array(ends), np.array(vel0)
 
 
 def first_order_lag(
@@ -459,14 +466,24 @@ def first_order_lag(
 
 
 def predict_calibrated(
-    kin: MecanumKinematics, p0: np.ndarray, seq: np.ndarray, gains: np.ndarray, tau: float
+    kin: MecanumKinematics, p0: np.ndarray, seq: np.ndarray, gains: np.ndarray, tau: float,
+    v0: np.ndarray | None = None,
 ) -> np.ndarray:
-    """Analytic model plus the M1 calibration: per-mode gains and actuator lag."""
-    return kin.predict(p0, first_order_lag(seq * gains, tau), CONTROL_DT)[-1]
+    """
+    Analytic model plus the M1 calibration: per-mode gains and actuator lag,
+    started from the measured current velocity.
+
+    v0 is not optional in spirit. Leaving it at zero makes the lag filter assert
+    the robot is stationary when each window opens, and tau then silently
+    absorbs the missing initial condition - which is why an earlier version of
+    this file fitted tau = 110-130 ms against a true actuator tau of ~60 ms.
+    """
+    return kin.predict(p0, first_order_lag(seq * gains, tau, v0=v0), CONTROL_DT)[-1]
 
 
 def fit_calibration(
-    starts: np.ndarray, seqs: np.ndarray, ends: np.ndarray, kin: MecanumKinematics
+    starts: np.ndarray, seqs: np.ndarray, ends: np.ndarray, kin: MecanumKinematics,
+    vel0: np.ndarray | None = None,
 ) -> tuple[np.ndarray, float]:
     """
     M1's calibration step: fit three per-mode efficiencies (forward, strafe,
@@ -483,11 +500,13 @@ def fit_calibration(
     """
     gains, tau = np.ones(3), 0.05
 
+    v0s = [None] * len(starts) if vel0 is None else list(vel0)
+
     def mean_err(g: np.ndarray, t: float) -> float:
         return float(
             np.mean([
-                np.linalg.norm(predict_calibrated(kin, p0, seq, g, t)[:2] - p1[:2])
-                for p0, seq, p1 in zip(starts, seqs, ends)
+                np.linalg.norm(predict_calibrated(kin, p0, seq, g, t, v)[:2] - p1[:2])
+                for p0, seq, p1, v in zip(starts, seqs, ends, v0s)
             ])
         )
 
@@ -528,20 +547,23 @@ def analytic_baseline(
     beats `naive` has beaten a strawman.
     """
     kin = MecanumKinematics()
-    starts, seqs, ends = collect_windows(surface, n_episodes, horizon_ticks, seed)
+    starts, seqs, ends, vel0 = collect_windows(surface, n_episodes, horizon_ticks, seed)
 
     # Split by position in the stream, not by random window: adjacent windows
     # share state and leak across a random split.
     cut = int(len(starts) * 0.6)
     train, test = slice(0, cut), slice(cut, len(starts))
-    gains, tau = fit_calibration(starts[train], seqs[train], ends[train], kin)
+    gains, tau = fit_calibration(starts[train], seqs[train], ends[train], kin,
+                                 vel0[train])
 
     summary = {}
     for name, g, t in (("naive", np.ones(3), 0.0), ("calibrated", gains, tau)):
+        # Naive gets v0 too: it is the same analytic model, uncalibrated, not a
+        # deliberately crippled one.
         errs = np.array(
             [
-                np.linalg.norm(predict_calibrated(kin, p0, seq, g, t)[:2] - p1[:2])
-                for p0, seq, p1 in zip(starts[test], seqs[test], ends[test])
+                np.linalg.norm(predict_calibrated(kin, p0, seq, g, t, v)[:2] - p1[:2])
+                for p0, seq, p1, v in zip(starts[test], seqs[test], ends[test], vel0[test])
             ]
         ) * 1000.0
         summary[name] = {

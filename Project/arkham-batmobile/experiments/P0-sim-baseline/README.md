@@ -1,6 +1,12 @@
 # P0 — Sim baseline
 
-**Date:** 2026-10-10 · **Status:** complete · **Milestone:** Phase 0 (precedes M0)
+**Date:** 2026-10-10 · **Status:** complete, **corrected 2026-10-13** · **Milestone:** Phase 0
+
+> **CORRECTION (2026-10-13).** The calibrated-analytic figure originally published here was
+> **13.4 mm**. It was wrong: the lag filter was cold-started, asserting the robot was at rest at
+> the beginning of every window. The corrected figure is **4.7 mm**. Found by the regression suite
+> in `software/tests/`, which was built from this project's own bug history and caught it on its
+> first run. Details in § Correction below.
 
 ## Question
 
@@ -27,25 +33,47 @@ four-parameter calibration should cut the naive analytic error substantially wit
 | Actuator time constant | 59.3 ms translate / 60.2 ms rotate | — |
 | Delivered fraction — forward / strafe / rotate | 91.8% / 80.9% / 86.7% | — |
 | Naive analytic, 1.0 s median error | 31.7 mm (p95 54.1) | 49.1 mm (p95 92.8) |
-| **Calibrated analytic, 1.0 s median error** | **13.4 mm** (p95 20.9) | **11.8 mm** (p95 21.0) |
-| Fitted gains fwd / strafe / rot, τ | 1.00 / 0.88 / 0.88, 120 ms | 0.93 / 0.72 / 0.77, 110 ms |
+| **Calibrated analytic, 1.0 s median error** | **4.7 mm** (p95 10.0) | **4.7 mm** (p95 9.1) |
+| Fitted gains fwd / strafe / rot, τ | 0.93 / 0.83 / 0.79, 80 ms | 0.88 / 0.68 / 0.70, 80 ms |
 
 Throughput 9,657 ticks/s (483× real time); 942 renders/s at 64 × 64.
 
 Expectations held: strafe is the worst mode on both surfaces, `mat` is worse than `hard`
-everywhere, and calibration cuts naive error by ~2.4× without closing it.
+everywhere. Calibration cuts naive error by ~6.7×, which is a far better baseline than this
+experiment originally credited it with.
 
 ![analytic baseline](assets/analytic_baseline.png)
 ![step response](assets/step_response.png)
 ![camera views](assets/camera_views.png)
 
+## Correction: the cold-started lag filter
+
+`first_order_lag` initialised its state at zero velocity, so the calibrated predictor began every
+1.0 s window as if the robot were stationary. It almost never is. The learned models in M2 were
+later given the measured start velocity as an input, so for a period the two documents reported the
+same predictor at 13.4 mm and 5.27 mm and I compared them across write-ups as though they matched.
+
+Two details worth keeping:
+
+- **The fix is not one line at evaluation time.** Passing `v0` into a calibration that was *fitted*
+  without it makes the error worse, because the inflated τ then double-counts the initial
+  condition. The calibration has to be refitted.
+- **τ was the tell, and I missed it.** This experiment originally fitted τ = 110–130 ms against a
+  directly measured actuator τ of ~60 ms, and I wrote that off as "a single first-order lag
+  compensating for speed-dependent slip". It was not. τ was absorbing the missing initial
+  condition, and after the fix it lands at 80 ms. **A fitted parameter that disagrees with a
+  directly measured one is a bug report, not a modelling subtlety.**
+
+M2's internal comparison was always fair — it fitted and evaluated consistently — so M2's
+conclusions are unaffected. What was wrong is this document's headline and the cross-document
+narrative built on it.
+
 ## Why the calibrated model still fails
 
 The residual it cannot absorb is where M2 should win:
 
-1. **One τ for everything.** The fit lands on 110–130 ms against a true actuator τ of ~60 ms,
-   because a single first-order lag is compensating for lag *and* for speed-dependent slip at the
-   same time. The model is misspecified, so the fitted parameters are biased.
+1. **One τ for everything.** A single first-order lag compensates for lag *and* speed-dependent
+   slip at once, so the model is misspecified even after the correction.
 2. **Efficiency is not constant.** `slip_model.py` makes it fall with speed (`eta_speed`), but the
    baseline fits one scalar per mode. A learned model conditioned on velocity can represent this.
 3. **Roller ripple is invisible to it.** Periodic in wheel angle, therefore predictable from
@@ -83,5 +111,8 @@ domain-shift result will read backwards.
 ## Next
 
 M2: `(state, actions) → future states`, predicting the residual on top of the calibrated model.
-Target: beat 13.4 mm median at a 1.0 s horizon on held-out `hard` episodes, then check whether it
-transfers to `mat` without retraining.
+Target: beat **4.7 mm** median at a 1.0 s horizon on held-out `hard` episodes, then check whether
+it transfers to `mat` without retraining.
+
+(M2 was run against its own correctly-fitted baseline of 5.27 mm and beat it by 73%, so that result
+stands. The two baseline figures differ only through window sampling and split.)

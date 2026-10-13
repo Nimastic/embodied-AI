@@ -38,13 +38,16 @@ restructure. Say the word and it gets committed.
 
 ## Open questions I could not answer for you
 
+0. **CAD toolchain for the body shell.** CadQuery is a ~300 MB pip install; Blender MCP is not
+   connected in this session. See [hardware/3d-design.md](hardware/3d-design.md) § 7.
 1. **GPU for M3 — now more urgent.** M2b makes vision the leading candidate for surface
    adaptation, which promotes M3 from "later" to "next after one cheap test". This machine has
    `torch 2.8.0+cpu`. Colab, or do you have a CUDA machine?
 2. **Where are you buying?** The BOM assumes Singapore sourcing (Cytron / SGBotic / AliExpress) —
    inferred from your NUS modules, so correct me if wrong.
-3. **Arena space.** Everything assumes a 2 × 2 m patch of hard floor you can tape and leave
-   undisturbed for weeks. Do you have that?
+3. ~~**Arena space.**~~ Answered: a 2 × 2 m patch of *floor* (not wall) for the robot to drive in,
+   with a camera above it. Not needed until hardware exists, and it does not block a parts order —
+   I overstated this. It only affects the camera mount design.
 
 ## Status log
 
@@ -54,4 +57,6 @@ restructure. Say the word and it gets committed.
 | 2026-10-11 | M2 state predictor trained. 1.40 mm vs 5.27 mm calibrated on hard floor; no transfer to unseen surface. |
 | 2026-10-11 | M2b: **hypothesis rejected.** History does not help — the surface is only 69% identifiable from proprioception even with 4 s of it. Redirects toward vision. |
 | 2026-10-11 | Simulator fix: `hard` and `mat` now look different, not just grip different. Any frame dataset from before today is stale. |
+| 2026-10-13 | M4 transfer sweep on `mat`: ordering holds on an unseen surface, ~10 point degradation, nothing collapses. Learned-vs-calibrated gap within noise on both surfaces. |
+| 2026-10-13 | 3D design spec for the body shell: battle mode, with the reasoning. |
 | 2026-10-11 | M4 MPPI planning. Replan rate dominates model quality; calibration captures most of the gain; learned model degrades 83% -> 35% advantage under the planner's own action distribution. Plans in 40 ms on CPU, so Pi-feasible. |

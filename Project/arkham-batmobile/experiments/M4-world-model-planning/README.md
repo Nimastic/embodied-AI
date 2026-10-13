@@ -128,6 +128,36 @@ difference only appears when you ask *why*.
 Both are recorded because tightening a task until your preferred method wins is p-hacking unless
 you report the settings that did not separate.
 
+## Transfer: the same sweep on an unseen surface
+
+Same model (trained on `hard`), same calibration (fitted on `hard`), evaluated on `mat`.
+
+| Replan interval | naive | calibrated | learned | | hard, for comparison |
+|---|---:|---:|---:|---|---|
+| 50 ms | 100% | 100% | 100% | | all 100% |
+| 150 ms | 100% | 100% | 100% | | all 100% |
+| 400 ms | 70.0% | 95.0% | **97.5%** | | 82.5 / 92.5 / 95.0 |
+| 750 ms | 47.5% | 60.0% | **65.0%** | | 47.5 / 70.0 / 72.5 |
+
+`reactive` on mat: 62.5% (vs 75% on hard).
+
+**Transfer is graceful.** The ordering naive < calibrated ≤ learned survives on a surface nothing
+was fitted to. Everything degrades — roughly 10 points at 750 ms — but nothing collapses, and the
+400 ms column is actually *better* than on hard for the two good predictors.
+
+This is a markedly better transfer story than M2's, where the learned model was indistinguishable
+from calibrated on `mat`. The reason is the same one that makes M4's headline awkward: in the
+planning loop the work is being done by the per-mode calibration, and **calibration fitted on one
+surface still transfers usefully to another** (naive 47.5% → calibrated 60% at 750 ms, with gains
+that are wrong for this floor). The learned residual contributes little either way, so it has
+little to lose.
+
+Worth stating plainly: the learned model's divergence advantage over calibrated is 6% on hard and
+1.6% on mat, buying +2.5 and +5 success points respectively. At 40 trials one trial is 2.5 points,
+so **the learned model's contribution is within noise on both surfaces.** The honest headline of
+M4 is that four fitted scalars do nearly all the work, on both the surface they were fitted to and
+one they were not.
+
 ## Caveats
 
 - **Simulation only**, and the dynamics are a slip model I wrote. The *ordering* of these results

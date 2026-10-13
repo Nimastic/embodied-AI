@@ -1,5 +1,19 @@
 # 3D Design Spec — Arkham Knight Batmobile shell
 
+> **STATUS: ITERATION 2. PARKED, NOT CANCELLED.**
+>
+> Deferred by Jeriel on 2026-10-13 in favour of finishing the original build. Nothing here is
+> abandoned — the design decisions below (battle mode, the three reprint-forcing constraints, the
+> transformation cost analysis) are settled and will not need redoing.
+>
+> **Start condition:** M4 passes on physical hardware. Until then the body is foam v1, per
+> [`build-notes.md`](build-notes.md) § Body shell and the original plan — which always had the
+> printed shell as v2.
+>
+> **Do not start this before the start condition.** The whole point of foam v1 is that attaching a
+> body becomes a one-weekend domain-shift experiment (M6) instead of a six-week CAD-print-sand-paint
+> blocker. Reaching for the printer early is the documented failure mode for this kind of project.
+
 Design intent, dimensioned envelope, and build plan for the body. Written before any modelling,
 because the shell has three hard constraints from the robot underneath it and getting those wrong
 means reprinting everything.
@@ -187,13 +201,12 @@ same as everything else here.
 
 ---
 
-## 7. Open decisions
+## 7. Open decisions — revisit when iteration 2 starts
 
-1. **CAD toolchain.** CadQuery is `pip install cadquery` but pulls OCP, a ~300 MB dependency. Say
-   the word and I will install it and build the parametric skeleton.
-2. **Blender MCP.** Not connected in this session. If you connect it I can drive the body
-   surfacing directly; otherwise I can produce a dimensioned build sheet and reference-plane setup
-   for you to model against.
+1. **CAD toolchain.** CadQuery is `pip install cadquery` but pulls OCP, a ~300 MB dependency.
+   Nothing installed yet; deliberately, since this is parked.
+2. **Blender MCP.** Not connected. If you connect it when iteration 2 starts, the body surfacing
+   can be driven directly; otherwise a dimensioned build sheet and reference-plane setup works.
 3. **Reference images.** The two you sent are die-cast toys, which are already interpretations.
    For real accuracy, orthographic screenshots from the game (front / side / top / rear at
    consistent FOV) are far better. Toy proportions are usually exaggerated and chunky.

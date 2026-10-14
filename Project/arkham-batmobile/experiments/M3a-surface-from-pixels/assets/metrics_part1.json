@@ -1,0 +1,218 @@
+{
+  "n_frames": {
+    "train": 16000,
+    "val": 4000,
+    "test": 4000
+  },
+  "n_episodes_per_split": {
+    "train": 40,
+    "val": 10,
+    "test": 10
+  },
+  "image_size": 64,
+  "m2b_proprio_reference": {
+    "accuracy": 0.69,
+    "window_s": 4.0
+  },
+  "appearance": {
+    "hard": {
+      "mean_rgb": [
+        71.7,
+        69.3,
+        73.7
+      ],
+      "mean_gray": 70.5,
+      "mean_r_minus_b": -2.0
+    },
+    "mat": {
+      "mean_rgb": [
+        88.8,
+        72.9,
+        60.1
+      ],
+      "mean_gray": 76.2,
+      "mean_r_minus_b": 28.6
+    }
+  },
+  "classifiers": [
+    {
+      "condition": "rgb",
+      "view": "rgb",
+      "train_jitter": false,
+      "test_jitter": false,
+      "scalar_baselines": {
+        "mean_pixel": 0.607,
+        "hf_energy": 0.5547,
+        "chroma_r_minus_b": 0.9507
+      },
+      "best_scalar_acc": 0.9507,
+      "best_scalar": "chroma_r_minus_b",
+      "cnn_acc": 1.0,
+      "cnn_vote_acc": {
+        "1": 1.0,
+        "2": 1.0,
+        "5": 1.0,
+        "10": 1.0,
+        "20": 1.0,
+        "40": 1.0,
+        "80": 1.0
+      },
+      "train_s": 4.9
+    },
+    {
+      "condition": "rgb+jitter",
+      "view": "rgb",
+      "train_jitter": false,
+      "test_jitter": true,
+      "scalar_baselines": {
+        "mean_pixel": 0.525,
+        "hf_energy": 0.5523,
+        "chroma_r_minus_b": 0.8548
+      },
+      "best_scalar_acc": 0.8548,
+      "best_scalar": "chroma_r_minus_b",
+      "cnn_acc": 0.9058,
+      "cnn_vote_acc": {
+        "1": 0.9058,
+        "2": 0.9395,
+        "5": 0.9738,
+        "10": 0.9975,
+        "20": 1.0,
+        "40": 1.0,
+        "80": 1.0
+      },
+      "train_s": 4.1
+    },
+    {
+      "condition": "rgb+aug",
+      "view": "rgb",
+      "train_jitter": true,
+      "test_jitter": true,
+      "scalar_baselines": {
+        "mean_pixel": 0.5275,
+        "hf_energy": 0.553,
+        "chroma_r_minus_b": 0.8578
+      },
+      "best_scalar_acc": 0.8578,
+      "best_scalar": "chroma_r_minus_b",
+      "cnn_acc": 0.9985,
+      "cnn_vote_acc": {
+        "1": 0.9985,
+        "2": 0.9995,
+        "5": 0.9988,
+        "10": 1.0,
+        "20": 1.0,
+        "40": 1.0,
+        "80": 1.0
+      },
+      "train_s": 10.2
+    },
+    {
+      "condition": "gray_std",
+      "view": "gray_std",
+      "train_jitter": false,
+      "test_jitter": true,
+      "scalar_baselines": {
+        "mean_pixel": 0.5105,
+        "hf_energy": 0.545
+      },
+      "best_scalar_acc": 0.545,
+      "best_scalar": "hf_energy",
+      "cnn_acc": 0.9685,
+      "cnn_vote_acc": {
+        "1": 0.9685,
+        "2": 0.9695,
+        "5": 0.97,
+        "10": 0.98,
+        "20": 0.99,
+        "40": 0.99,
+        "80": 0.98
+      },
+      "train_s": 19.4
+    },
+    {
+      "condition": "floor_std",
+      "view": "floor_std",
+      "train_jitter": false,
+      "test_jitter": true,
+      "scalar_baselines": {
+        "mean_pixel": 0.5195,
+        "hf_energy": 0.961
+      },
+      "best_scalar_acc": 0.961,
+      "best_scalar": "hf_energy",
+      "cnn_acc": 0.9928,
+      "cnn_vote_acc": {
+        "1": 0.9928,
+        "2": 0.993,
+        "5": 0.9925,
+        "10": 0.995,
+        "20": 0.995,
+        "40": 1.0,
+        "80": 1.0
+      },
+      "train_s": 18.0
+    },
+    {
+      "condition": "sky_std",
+      "view": "sky_std",
+      "train_jitter": false,
+      "test_jitter": true,
+      "scalar_baselines": {
+        "mean_pixel": 0.534,
+        "hf_energy": 0.4845
+      },
+      "best_scalar_acc": 0.534,
+      "best_scalar": "mean_pixel",
+      "cnn_acc": 0.483,
+      "cnn_vote_acc": {
+        "1": 0.483,
+        "2": 0.484,
+        "5": 0.4863,
+        "10": 0.4825,
+        "20": 0.495,
+        "40": 0.45,
+        "80": 0.4
+      },
+      "train_s": 4.2
+    }
+  ],
+  "train_size_sweep": [
+    {
+      "frames_per_class": 1,
+      "cnn_acc_mean": 0.5091,
+      "cnn_acc_min": 0.4863,
+      "cnn_acc_max": 0.5515
+    },
+    {
+      "frames_per_class": 4,
+      "cnn_acc_mean": 0.6669,
+      "cnn_acc_min": 0.589,
+      "cnn_acc_max": 0.7348
+    },
+    {
+      "frames_per_class": 16,
+      "cnn_acc_mean": 0.7967,
+      "cnn_acc_min": 0.7885,
+      "cnn_acc_max": 0.8043
+    },
+    {
+      "frames_per_class": 64,
+      "cnn_acc_mean": 0.8988,
+      "cnn_acc_min": 0.8765,
+      "cnn_acc_max": 0.9393
+    },
+    {
+      "frames_per_class": 256,
+      "cnn_acc_mean": 0.9324,
+      "cnn_acc_min": 0.923,
+      "cnn_acc_max": 0.9383
+    },
+    {
+      "frames_per_class": 1024,
+      "cnn_acc_mean": 0.9549,
+      "cnn_acc_min": 0.9535,
+      "cnn_acc_max": 0.9563
+    }
+  ]
+}

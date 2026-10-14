@@ -70,17 +70,16 @@ def run_trial(env, task, condition, predictor, kin, seed, n_execute, record=Fals
             plan = planner.plan(obs["pose_gt"], hist)
             plan_times.append(time.perf_counter() - t0)
             actions = plan[:n_execute]
-            # Compare like with like: where the plan says we will be after the
-            # actions we are about to EXECUTE, not at the end of the full
-            # horizon. (The first version compared a 0.75 s prediction against
-            # a 0.15 s outcome and reported a fictitious 210 mm divergence.)
-            predicted_after_chunk = planner.last_diagnostics["predicted_path"][
-                len(actions) - 1]
+            # Keep the whole predicted path; it can only be indexed correctly
+            # after we know how many actions actually ran (see below).
+            predicted_path = planner.last_diagnostics["predicted_path"]
 
+        n_done = 0
         for a in actions:
             obs = env.step(clamp_action(a))
             hist_buf.append(_feat(obs))
             traj.append(obs["pose_gt"].copy())
+            n_done += 1
             if task.collided(obs["pose_gt"]):
                 collided = True
             if record:
@@ -90,10 +89,22 @@ def run_trial(env, task, condition, predictor, kin, seed, n_execute, record=Fals
                 break
 
         if planner is not None:
-            planner.shift(len(actions))
-            # Where the plan said we would end up, vs where we actually are now.
+            # Index by what ACTUALLY executed, not by the chunk length. This loop
+            # breaks early when the goal is reached, so on the last replan of
+            # nearly every successful episode fewer actions run than were
+            # planned. Indexing at len(actions)-1 then scored a 15-step
+            # prediction against a 3-step outcome and reported a predictor with
+            # 0.27 mm of true error at 21 mm.
+            #
+            # This is the SECOND time this comparison has been mismatched. The
+            # first version compared the full 0.75 s horizon against a 0.15 s
+            # outcome; fixing that left this subtler case behind. Any
+            # predicted-vs-actual comparison needs both sides pinned to the same
+            # number of elapsed ticks, and "the number we intended to execute"
+            # is not that number.
+            planner.shift(n_done)
             divergences.append(
-                float(np.linalg.norm(predicted_after_chunk[:2] - obs["pose_gt"][:2]))
+                float(np.linalg.norm(predicted_path[n_done - 1][:2] - obs["pose_gt"][:2]))
             )
 
         if task.reached(obs["pose_gt"]) or obs["out_of_bounds"]:

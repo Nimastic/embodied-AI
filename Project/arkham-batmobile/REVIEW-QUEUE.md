@@ -15,6 +15,8 @@ restructure. Say the word and it gets committed.
 | 1 | [experiments/M2-state-predictor/README.md](experiments/M2-state-predictor/README.md) | The headline result, and the baseline bug that nearly faked it. If you only read one thing, this. |
 | 1b | [experiments/M2b-history-conditioning/README.md](experiments/M2b-history-conditioning/README.md) | My proposed fix failed. Includes why, and why I should have predicted it. Short. |
 | 1c | [experiments/M4-world-model-planning/README.md](experiments/M4-world-model-planning/README.md) | The payoff experiment. Planning works, but most of the benefit comes from four fitted scalars rather than the neural network — and why. Also a cost-function bug that nearly became a false finding. |
+| 1d | [experiments/M5-dagger/README.md](experiments/M5-dagger/README.md) | **The most important result so far.** DAgger closes the accuracy gap 4.9× and buys zero task success, and an oracle proves a *perfect* model would too. Overturns M4's explanation. |
+| 1e | [experiments/M3a-surface-from-pixels/README.md](experiments/M3a-surface-from-pixels/README.md) | Vision fixes M2's transfer failure (16.78 → 1.98 mm). Read the caveats — a one-line classifier gets 95%. |
 | 2 | [hardware/BOM.md](hardware/BOM.md) | **Spends your money.** ~$450 for the learning robot. I chose Pi 5 over Jetson and slow encoder motors over brushless — both are reversible now and expensive later. |
 | 3 | [PRD.md](PRD.md) § 3 | The eight success criteria. If you disagree with what "done" means, now is the cheap time to say so. |
 
@@ -56,5 +58,8 @@ restructure. Say the word and it gets committed.
 | 2026-10-11 | M2b: **hypothesis rejected.** History does not help — the surface is only 69% identifiable from proprioception even with 4 s of it. Redirects toward vision. |
 | 2026-10-11 | Simulator fix: `hard` and `mat` now look different, not just grip different. Any frame dataset from before today is stale. |
 | 2026-10-13 | M4 transfer sweep on `mat`: ordering holds on an unseen surface, ~10 point degradation, nothing collapses. Learned-vs-calibrated gap within noise on both surfaces. |
+| 2026-10-14 | M5 DAgger: accuracy gap closed 4.9×, task success unchanged. Oracle shows a perfect model scores the same — no headroom existed. Corrects M4's explanation. |
+| 2026-10-14 | M3a vision: 100% surface ID from one frame (but a one-line scalar gets 95.1%); conditioning fixes M2's transfer failure, 16.78 → 1.98 mm. |
+| 2026-10-14 | Third divergence-indexing bug fixed in run_m4.py; M4's diagnostic column corrected, success rates unaffected. |
 | 2026-10-13 | 3D design spec written, then **parked as iteration 2** — battle mode, decisions settled, starts when M4 passes on hardware. Body stays foam v1 until then. |
 | 2026-10-11 | M4 MPPI planning. Replan rate dominates model quality; calibration captures most of the gain; learned model degrades 83% -> 35% advantage under the planner's own action distribution. Plans in 40 ms on CPU, so Pi-feasible. |

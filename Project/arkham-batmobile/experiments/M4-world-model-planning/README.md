@@ -1,6 +1,16 @@
 # M4 — Planning inside a learned world model
 
-**Date:** 2026-10-11 · **Status:** complete · **Milestone:** M4 (simulation only)
+**Date:** 2026-10-11 · **Status:** complete, **corrected 2026-10-14** · **Milestone:** M4
+
+> **CORRECTION (2026-10-14).** The `divergence` column published here was a termination artifact,
+> not model error — `run_trial` indexed the predicted path at the chunk length while the execution
+> loop breaks early on reaching the goal, so a 15-step prediction was scored against a 3-step
+> outcome. Corrected figures are in the tables below (hard @ 750 ms: calibrated 21.47 → **4.12 mm**,
+> learned 20.18 → **2.71 mm**). **Success and collision rates are unaffected** — they come from the
+> actual trajectory — and all three findings stand. Verified trial-for-trial: 0 trajectory
+> mismatches.
+>
+> **Finding 2's *explanation* is also superseded.** See § The ceiling, below.
 
 ## Question
 
@@ -37,9 +47,9 @@ Success rate (collision-free gate traversal reaching the goal):
 | Replan interval | naive | calibrated | learned | divergence (naive → learned) |
 |---|---:|---:|---:|---|
 | 50 ms | 100% | 100% | 100% | 3.07 → 0.10 mm |
-| 150 ms | 100% | 100% | 100% | 7.32 → 0.81 mm |
-| 400 ms | 82.5% | 92.5% | **95.0%** | 20.51 → 5.65 mm |
-| 750 ms | 47.5% | 70.0% | **72.5%** | 47.66 → 20.18 mm |
+| 150 ms | 100% | 100% | 100% | 6.95 → 0.37 mm |
+| 400 ms | 82.5% | 92.5% | **95.0%** | 17.42 → 1.46 mm |
+| 750 ms | 47.5% | 70.0% | **72.5%** | 30.95 → 2.71 mm |
 
 `reactive` (no model at all): **75%**.
 
@@ -60,7 +70,32 @@ Success rate (collision-free gate traversal reaching the goal):
    naive model (47.5%) is *worse* than the model-free reactive controller (75%). A bad model
    committed to for three quarters of a second is worse than no model and a tight loop.
 
-## Why the learned model barely helped
+## The ceiling — why the learned model barely helped
+
+**This section supersedes the distribution-shift explanation below.** The M5 follow-up built an
+oracle predictor that plans through the simulator's own dynamics, validated at 0.175 mm:
+
+| at 750 ms | on-policy 0.75 s error | success |
+|---|---:|---:|
+| naive | 30.95 mm | 47.5% |
+| calibrated | 4.12 mm | 70.0% |
+| learned | 2.71 mm | 72.5% |
+| **oracle (perfect model)** | **0.18 mm** | **72.5%** |
+
+**A 23× more accurate model scores identically.** There was never any headroom: the +2.5 point
+calibrated→learned gap had a +2.5 point ceiling. Success against accuracy is flat below ~4 mm,
+because the gate leaves 18–53 mm of clearance and sub-4 mm errors cannot change whether the robot
+fits through it.
+
+So the diagnosis below is true as a measurement and wrong as an explanation. The distribution
+shift is real, and M5's DAgger loop closed it (2.81 → 0.57 mm on planner actions, 4.9×) — and task
+success did not move at all. See [`../M5-dagger/`](../M5-dagger/README.md).
+
+The lesson, which is the same one M2b taught one experiment earlier: **before improving a
+component, measure what that component being perfect would be worth.** The oracle cost under a
+hundred lines and three minutes, and would have predicted both null results in advance.
+
+## Why the learned model barely helped — the superseded diagnosis
 
 M2 measured the learned model as ~4× more accurate than calibrated. Here it bought 2.5 points.
 That gap needed an explanation, so:
@@ -138,6 +173,14 @@ Same model (trained on `hard`), same calibration (fitted on `hard`), evaluated o
 | 150 ms | 100% | 100% | 100% | | all 100% |
 | 400 ms | 70.0% | 95.0% | **97.5%** | | 82.5 / 92.5 / 95.0 |
 | 750 ms | 47.5% | 60.0% | **65.0%** | | 47.5 / 70.0 / 72.5 |
+
+Corrected divergence on mat (naive → calibrated → learned): 26.94 / 10.78 / **10.49 mm** at
+400 ms, 50.13 / 21.60 / **20.70 mm** at 750 ms.
+
+Note the asymmetry with hard, where the same correction cut divergence 5× and here it barely
+moved. That is not the bug behaving differently — it is that on `mat` the genuine model error
+dominates. The learned model was trained on `hard`, so its real transfer error (10.5 mm at 400 ms
+against 1.5 mm on hard, 7×) swamps the termination artifact that was previously inflating both.
 
 `reactive` on mat: 62.5% (vs 75% on hard).
 

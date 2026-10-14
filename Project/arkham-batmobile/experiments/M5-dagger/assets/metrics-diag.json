@@ -1,0 +1,494 @@
+{
+  "calibration": {
+    "gains": [
+      0.93,
+      0.83,
+      0.77
+    ],
+    "tau_s": 0.08
+  },
+  "collect_eval_r0": {
+    "label": "eval-r0",
+    "n_episodes": 24,
+    "n_ticks": 1323,
+    "collect_success_rate": 0.958,
+    "wall_s": 13.0,
+    "chunks": [
+      1,
+      3,
+      8,
+      15
+    ]
+  },
+  "d1_random": {
+    "split": "random held-out",
+    "n_windows": 3540,
+    "mean_path_m": 0.15,
+    "mm_at_0.75s": {
+      "naive": 28.025,
+      "calibrated": 4.477,
+      "learned": 1.126
+    },
+    "mm_at_1.0s": {
+      "naive": 31.73,
+      "calibrated": 5.27,
+      "learned": 1.34
+    },
+    "curves_mm": {
+      "naive": [
+        5.738,
+        9.602,
+        12.501,
+        14.597,
+        16.288,
+        17.976,
+        19.718,
+        21.142,
+        22.337,
+        23.283,
+        24.326,
+        25.33,
+        26.581,
+        27.081,
+        28.025,
+        28.867,
+        29.65,
+        30.152,
+        30.97,
+        31.733
+      ],
+      "calibrated": [
+        1.099,
+        1.907,
+        2.436,
+        2.817,
+        3.067,
+        3.317,
+        3.548,
+        3.697,
+        3.806,
+        3.885,
+        4.027,
+        4.149,
+        4.252,
+        4.333,
+        4.477,
+        4.604,
+        4.71,
+        4.931,
+        5.076,
+        5.271
+      ],
+      "learned": [
+        0.088,
+        0.197,
+        0.307,
+        0.412,
+        0.505,
+        0.594,
+        0.667,
+        0.727,
+        0.797,
+        0.858,
+        0.907,
+        0.958,
+        1.02,
+        1.077,
+        1.126,
+        1.176,
+        1.209,
+        1.258,
+        1.297,
+        1.345
+      ]
+    },
+    "learned_advantage_pct": 74.8
+  },
+  "d1_mppi": {
+    "split": "MPPI, round-0 model",
+    "n_windows": 819,
+    "mean_path_m": 0.354,
+    "mm_at_0.75s": {
+      "naive": 29.57,
+      "calibrated": 4.267,
+      "learned": 2.813
+    },
+    "mm_at_1.0s": {
+      "naive": 37.11,
+      "calibrated": 5.84,
+      "learned": 3.71
+    },
+    "curves_mm": {
+      "naive": [
+        2.414,
+        4.42,
+        6.49,
+        8.568,
+        10.624,
+        12.562,
+        14.515,
+        16.451,
+        18.374,
+        20.197,
+        22.034,
+        23.983,
+        25.786,
+        27.705,
+        29.57,
+        31.18,
+        32.767,
+        34.217,
+        35.667,
+        37.112
+      ],
+      "calibrated": [
+        0.329,
+        0.622,
+        0.898,
+        1.198,
+        1.496,
+        1.786,
+        2.075,
+        2.405,
+        2.67,
+        2.919,
+        3.184,
+        3.439,
+        3.714,
+        3.995,
+        4.267,
+        4.601,
+        4.885,
+        5.225,
+        5.47,
+        5.841
+      ],
+      "learned": [
+        0.081,
+        0.224,
+        0.378,
+        0.56,
+        0.75,
+        0.945,
+        1.167,
+        1.387,
+        1.6,
+        1.818,
+        2.052,
+        2.269,
+        2.459,
+        2.627,
+        2.813,
+        3.007,
+        3.168,
+        3.352,
+        3.524,
+        3.706
+      ]
+    },
+    "learned_advantage_pct": 34.1
+  },
+  "action_stats": [
+    {
+      "label": "random exploration",
+      "n_ticks": 36000,
+      "mean_abs": [
+        0.1939,
+        0.1962,
+        0.7691
+      ],
+      "p95_abs": [
+        0.3786,
+        0.3827,
+        1.7022
+      ],
+      "mean_speed_m_s": 0.3036,
+      "mean_peak_wheel_rad_s": 12.926,
+      "wheel_saturated_frac": 0.7404,
+      "mean_abs_jerk": [
+        0.1099,
+        0.1076,
+        0.3952
+      ]
+    },
+    {
+      "label": "MPPI, round-0 model",
+      "n_ticks": 1323,
+      "mean_abs": [
+        0.357,
+        0.0898,
+        0.169
+      ],
+      "p95_abs": [
+        0.4564,
+        0.2335,
+        0.4105
+      ],
+      "mean_speed_m_s": 0.378,
+      "mean_peak_wheel_rad_s": 11.867,
+      "wheel_saturated_frac": 0.0438,
+      "mean_abs_jerk": [
+        0.0279,
+        0.0321,
+        0.0974
+      ]
+    }
+  ],
+  "runner_verification": {
+    "n_trials_checked": 20,
+    "trajectory_mismatches": 0,
+    "mean_divergence_run_m4_mm": 12.62,
+    "mean_divergence_fixed_mm": 2.16
+  },
+  "oracle_validation": {
+    "actuator_tau_ms": [
+      60.32,
+      60.32,
+      61.22
+    ],
+    "n_trials": 8,
+    "mean_divergence_mm": 0.175,
+    "max_divergence_mm": 0.2
+  },
+  "d2_oracle": {
+    "chunk8": {
+      "success_rate": 0.925,
+      "collision_rate": 0.075,
+      "median_time_s": 2.65,
+      "median_min_post_dist_mm": 100.0,
+      "mean_plan_divergence_mm": 0.1,
+      "median_plan_ms": 115.3,
+      "n_trials": 40
+    },
+    "chunk15": {
+      "success_rate": 0.725,
+      "collision_rate": 0.275,
+      "median_time_s": 2.7,
+      "median_min_post_dist_mm": 94.0,
+      "mean_plan_divergence_mm": 0.18,
+      "median_plan_ms": 113.0,
+      "n_trials": 40
+    }
+  },
+  "d2_calibrated": {
+    "chunk8": {
+      "success_rate": 0.925,
+      "collision_rate": 0.075,
+      "median_time_s": 2.65,
+      "median_min_post_dist_mm": 99.6,
+      "mean_plan_divergence_mm": 2.37,
+      "median_plan_ms": 8.3,
+      "n_trials": 40
+    },
+    "chunk15": {
+      "success_rate": 0.7,
+      "collision_rate": 0.3,
+      "median_time_s": 2.73,
+      "median_min_post_dist_mm": 93.2,
+      "mean_plan_divergence_mm": 4.13,
+      "median_plan_ms": 8.2,
+      "n_trials": 40
+    }
+  },
+  "d2_learned_r0": {
+    "chunk8": {
+      "success_rate": 0.95,
+      "collision_rate": 0.05,
+      "median_time_s": 2.65,
+      "median_min_post_dist_mm": 99.7,
+      "mean_plan_divergence_mm": 1.45,
+      "median_plan_ms": 21.5,
+      "n_trials": 40
+    },
+    "chunk15": {
+      "success_rate": 0.725,
+      "collision_rate": 0.275,
+      "median_time_s": 2.75,
+      "median_min_post_dist_mm": 94.3,
+      "mean_plan_divergence_mm": 2.71,
+      "median_plan_ms": 22.3,
+      "n_trials": 40
+    }
+  },
+  "collect_round1": {
+    "label": "r1",
+    "n_episodes": 150,
+    "n_ticks": 8119,
+    "collect_success_rate": 0.94,
+    "wall_s": 73.6,
+    "chunks": [
+      1,
+      3,
+      8,
+      15
+    ]
+  },
+  "d3_planner_only_mppi": {
+    "split": "MPPI, planner-only model",
+    "n_windows": 819,
+    "mean_path_m": 0.354,
+    "mm_at_0.75s": {
+      "naive": 29.57,
+      "calibrated": 4.267,
+      "learned": 0.852
+    },
+    "mm_at_1.0s": {
+      "naive": 37.11,
+      "calibrated": 5.84,
+      "learned": 1.06
+    },
+    "curves_mm": {
+      "naive": [
+        2.414,
+        4.42,
+        6.49,
+        8.568,
+        10.624,
+        12.562,
+        14.515,
+        16.451,
+        18.374,
+        20.197,
+        22.034,
+        23.983,
+        25.786,
+        27.705,
+        29.57,
+        31.18,
+        32.767,
+        34.217,
+        35.667,
+        37.112
+      ],
+      "calibrated": [
+        0.329,
+        0.622,
+        0.898,
+        1.198,
+        1.496,
+        1.786,
+        2.075,
+        2.405,
+        2.67,
+        2.919,
+        3.184,
+        3.439,
+        3.714,
+        3.995,
+        4.267,
+        4.601,
+        4.885,
+        5.225,
+        5.47,
+        5.841
+      ],
+      "learned": [
+        0.155,
+        0.28,
+        0.366,
+        0.445,
+        0.524,
+        0.553,
+        0.593,
+        0.617,
+        0.621,
+        0.661,
+        0.685,
+        0.721,
+        0.764,
+        0.806,
+        0.852,
+        0.897,
+        0.941,
+        0.981,
+        1.018,
+        1.056
+      ]
+    },
+    "learned_advantage_pct": 80.0
+  },
+  "d3_planner_only_random": {
+    "split": "random, planner-only model",
+    "n_windows": 3540,
+    "mean_path_m": 0.15,
+    "mm_at_0.75s": {
+      "naive": 28.025,
+      "calibrated": 4.477,
+      "learned": 13.306
+    },
+    "mm_at_1.0s": {
+      "naive": 31.73,
+      "calibrated": 5.27,
+      "learned": 17.71
+    },
+    "curves_mm": {
+      "naive": [
+        5.738,
+        9.602,
+        12.501,
+        14.597,
+        16.288,
+        17.976,
+        19.718,
+        21.142,
+        22.337,
+        23.283,
+        24.326,
+        25.33,
+        26.581,
+        27.081,
+        28.025,
+        28.867,
+        29.65,
+        30.152,
+        30.97,
+        31.733
+      ],
+      "calibrated": [
+        1.099,
+        1.907,
+        2.436,
+        2.817,
+        3.067,
+        3.317,
+        3.548,
+        3.697,
+        3.806,
+        3.885,
+        4.027,
+        4.149,
+        4.252,
+        4.333,
+        4.477,
+        4.604,
+        4.71,
+        4.931,
+        5.076,
+        5.271
+      ],
+      "learned": [
+        0.912,
+        1.488,
+        2.114,
+        2.916,
+        3.796,
+        4.716,
+        5.645,
+        6.639,
+        7.699,
+        8.697,
+        9.603,
+        10.604,
+        11.522,
+        12.452,
+        13.306,
+        14.314,
+        15.164,
+        16.056,
+        16.8,
+        17.706
+      ]
+    },
+    "learned_advantage_pct": -197.2
+  }
+}
